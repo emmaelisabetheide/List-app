@@ -3,14 +3,13 @@ const tekstFelt = document.querySelector("#tekst-felt");
 const knapp = document.querySelector("#leggtil-knapp");
 const liste = document.querySelector("#liste");
 
-
 /***** FUNKSJONER *****/
 
 /**
-* Sender tekst fra #tekst-felt til lagVare(), og fester elementet til liste.
-* @param {string} vareNavn Navnet på varen som skal festes til listen.
-* @return void
-*/
+ * Sender tekst fra #tekst-felt til lagVare(), og fester elementet til liste.
+ * @param {string} vareNavn Navnet på varen som skal festes til listen.
+ * @return void
+ */
 function leggTilIListe(vareNavn) {
   const li = lagVare(vareNavn);
 
@@ -21,12 +20,11 @@ function leggTilIListe(vareNavn) {
   lagreListe();
 }
 
-
 /**
-* Skaper et li-element med varenavn og sletteknapp.
-* @param {string} vare Teksten som skal settes inn i li-elementet.
-* @return {HTMLElement} Et li-element med tekst og et P-element.
-*/
+ * Skaper et li-element med varenavn og sletteknapp.
+ * @param {string} vare Teksten som skal settes inn i li-elementet.
+ * @return {HTMLElement} Et li-element med tekst og et P-element.
+ */
 function lagVare(vare) {
   //Lag nytt HTML-element
   const li = document.createElement("li");
@@ -45,7 +43,7 @@ function Slett(li) {
   this.knapp.classList.add("slett");
 
   //Legg til slett-funksjon på slett-knappen.
-  this.knapp.addEventListener("click", function(event) {
+  this.knapp.addEventListener("click", function (event) {
     liste.removeChild(li);
 
     //Lagre listen når varer slettes.
@@ -57,26 +55,25 @@ function Slett(li) {
 function lagreListe() {
   const listeArray = document.querySelectorAll("li");
   const varer = [];
-  for(let i = 0; i < listeArray.length; i++) {
+  for (let i = 0; i < listeArray.length; i++) {
     varer.push(listeArray[i].innerText.slice(0, -3));
   }
   localStorage.handleListeApp = varer.join("#¤%");
 }
 
-
 /***** PROGRAM *****/
-knapp.addEventListener("click", function() {
+knapp.addEventListener("click", function () {
   const VARE = tekstFelt.value.trim();
-  if(VARE) {
+  if (VARE) {
     leggTilIListe(VARE);
   }
 });
 
 //Sjekk om det finnes en lagret liste.
-if(localStorage.handleListeApp) {
+if (localStorage.handleListeApp) {
   //Hvis det finnes: Hent inn i appen.
   const varer = localStorage.handleListeApp.split("#¤%");
-  for(let i = 0; i < varer.length; i++) {
+  for (let i = 0; i < varer.length; i++) {
     leggTilIListe(varer[i]);
   }
 }
